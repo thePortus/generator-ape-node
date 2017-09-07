@@ -1,0 +1,28 @@
+{
+  "name": "generator-ape-node",
+  "version": "0.0.1",
+  "description": "Angular-PostgreSQL-Express Stack Generator",
+  "main": "./generators/app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thePortus/generator-ape-node.git"
+  },
+  "keywords": [
+    "angular",
+    "postgres",
+    "express",
+    "node"
+  ],
+  "author": "David J. Thomas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thePortus/generator-ape-node/issues"
+  },
+  "homepage": "https://github.com/thePortus/generator-ape-node#readme",
+  "dependencies": {
+    "yeoman-generator": "^1.1.1"
+  }
+}

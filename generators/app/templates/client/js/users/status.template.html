@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<div>
+    <div ng-if="!vm.auth.jsonWebToken">
+        <md-button ng-click="vm.login()" class="md-raised md-accent" aria-label="Login button">
+            Log In
+        </md-button>
+    </div>
+    <div ng-if="vm.auth.jsonWebToken" layout="row" layout-align="start center">
+        {{ vm.auth.userData.username }}
+        <md-button ng-click="vm.logout()" class="md-raised md-accent" aria-label="Logout button">
+            <small>Log Out</small>
+        </md-button>
+    </div>
+</div>
