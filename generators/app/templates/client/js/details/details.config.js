@@ -2,6 +2,6 @@
     'use strict';
 
   // Module Definition
-  angular.module('ape-node.details', []);
+  angular.module('ape.details', []);
 
 })();

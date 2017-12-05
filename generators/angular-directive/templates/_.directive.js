@@ -1,48 +1,62 @@
-// wrapper
+/**
+ * <%= directivePath %>
+ * @file
+ *
+ * <%= documentAuthor %>
+ *
+ * <%= documentDescription %>
+ *
+ * Created with the Ape-Stack Yeoman Generator
+ * Copyright (c) 2016 David J. Thomas, dave.a.base@gmail.com
+ * http://thePortus.com | https://github.com/thePortus
+ *
+ * Formatted according to John Papa's Angular styleguide
+ * https://github.com/johnpapa/angular-styleguide
+ */
+
 (function() {
+  'use strict';
 
-    'use strict';
+  angular.module('<%= slugifiedModuleName %>')
+    .directive('<%= camelizedDirectiveName %>', <%= camelizedDirectiveName %>);
 
-    angular.module('<%= slugifiedModuleName %>')
-        .directive('<%= camelizedName %>', <%= camelizedName %>);
+  function <%= camelizedDirectiveName %> (staticPath) {
+    var directive = {
+      templateUrl: staticPath('js/<%= slugifiedModuleName %>/<%= slugifiedDirectiveName %>.template.html'),
+      // variables to pass to directive controller
+      scope: {
+          // foo: '=',
+          // bar: '=',
+      },
+      controller: <%= camelizedDirectiveName %>Controller,
+      controllerAs: 'vm',
+      bindToController: true // b/c isolated scope
+    };
+    return directive;
+  }
 
-    function <%= camelizedName %> (staticPath) {
-        var directive = {
-            templateUrl: staticPath('<%= slugifiedModuleName %>/templates/<%= slugifiedModuleName %>.<%= slugifiedName %>.template.html'),
-            // variables to pass to directive controller
-            scope: {
-                // foo: '=',
-                // bar: '=',
-            },
-            controller: <%= camelizedName %>Controller,
-            controllerAs: 'vm',
-            bindToController: true // b/c isolated scope
-        };
-        return directive;
-    }
+  function <%= camelizedDirectiveName %>Controller() {
+    /* jshint validthis: true */
+    var vm = this;
 
-    /* CONTROLLER FUNCTION */
-    function <%= camelizedName %>Controller() {
-            /* jshint validthis: true */
-            var vm = this;
+    /* properties */
 
-            /* PROPERTY & METHOD DEFINITIONS */
-            //vm.foo = 'bar';
-            vm.initialize = initialize;
+    // vm.foo = 'bar';
 
-            /* INITIALIZATION */
-            vm.initialize();
+    /* methods */
+    // vm.someMethod = someFunction;
 
+    // assign controller init function
+    vm.$onInit = initialize;
 
-            function initialize() {
+    /* functions */
 
-                // POST CONTROLLER-LOAD LOGIC GOES HERE
+    function initialize() {
+      // post-load logic goes here
+    } // initialize
 
-            }
+    // function someFunction() {}
 
+  } // <%= camelizedDirectiveName %>Controller
 
-            /* FUNCTIONS */
-
-        }
-        /* /CONTROLLER FUNCTION */
-})(); // end wrapper
+})();

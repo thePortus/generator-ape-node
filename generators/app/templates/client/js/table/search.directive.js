@@ -1,18 +1,18 @@
 (function() {
   'use strict';
 
-  angular.module('ape-node.table')
-    .directive('eleusisTableSearch', eleusisTableSearch);
+  angular.module('ape.table')
+    .directive('apeTableSearch', apeTableSearch);
 
   /*Directive Definition*/
-  function eleusisTableSearch() {
+  function apeTableSearch() {
     var directive = {
       templateUrl: 'js/table/search.template.html',
       scope: {
         searchterm: '=',
         table: '='
       },
-      controller: eleusisTableSearchController,
+      controller: apeTableSearchController,
       controllerAs: 'vm',
       bindToController: true // because the scope is isolated
     };
@@ -20,7 +20,7 @@
   }
 
   /*Directive Controller*/
-  function eleusisTableSearchController() {
+  function apeTableSearchController() {
     /* jshint validthis: true */
     var vm = this;
 
@@ -44,6 +44,6 @@
       }
     }
   }
-  /*close eleusisTableController*/
+  /*close apeTableSearchController*/
 
 })();

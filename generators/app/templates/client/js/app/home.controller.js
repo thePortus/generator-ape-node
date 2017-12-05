@@ -1,14 +1,14 @@
 (function() {
   'use strict';
 
-  angular.module('ape-node.app')
+  angular.module('ape.app')
     .controller('HomeCtrl', homeCtrl);
 
   function homeCtrl() {
     /* jshint validthis: true */
     var vm = this;
 
-    vm.message = 'Welcome to Ape-Node (Angular, Postgres, Express, Node).';
+    vm.message = 'Welcome to APE Stack (Angular, Postgres, Express).';
 
   }
 

@@ -2,7 +2,7 @@
   'use strict';
 
 
-  angular.module('ape-node.app')
+  angular.module('ape.app')
     .factory('Api', apiFactory);
 
     /*Table factory function definition*/

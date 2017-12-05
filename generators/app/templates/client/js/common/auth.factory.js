@@ -2,7 +2,7 @@
   'use strict';
 
 
-  angular.module('ape-node.common')
+  angular.module('ape.common')
     .factory('Auth', authFactory);
 
     /*Factory function definition, put Angular services here*/

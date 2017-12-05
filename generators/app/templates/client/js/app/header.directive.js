@@ -2,7 +2,7 @@
   'use strict';
 
   /*Directive Definition*/
-  angular.module('ape-node.app')
+  angular.module('ape.app')
     .directive('apeSiteHeader', apeSiteHeader);
 
   /*Directive Definition*/

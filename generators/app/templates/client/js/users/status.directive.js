@@ -2,7 +2,7 @@
   'use strict';
 
   /*Directive Definition*/
-  angular.module('ape-node.users')
+  angular.module('ape.users')
     .directive('apeUserStatus', apeUserStatus);
 
   /*Directive Definition*/

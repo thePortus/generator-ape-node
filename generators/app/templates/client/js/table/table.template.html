@@ -11,14 +11,14 @@
                 <legend>
                     {{ vm.table.table_name.label }}
                 </legend>
-                <eleusis-table-rows table="vm.table" searchterm="vm.searchterm" detail-table="{{vm.detailTable}}"></eleusis-table-rows>
+                <ape-table-rows table="vm.table" searchterm="vm.searchterm" detail-table="{{vm.detailTable}}"></ape-table-rows>
             </fieldset>
         </div>
         <md-button ng-if="vm.disableOptions === false" aria-label="Open table options" class="md-icon-button" ng-click="vm.clickOptions()">
             <md-icon md-menu-origin md-svg-icon="dots-vertical"></md-icon>
         </md-button>
         <div ng-if="vm.showOptions === true && vm.disableOptions === false">
-            <eleusis-table-search table="vm.table" searchterm="vm.searchterm"></eleusis-table-search>
+            <ape-table-search table="vm.table" searchterm="vm.searchterm"></ape-table-search>
         </div>
     </div>
 </div>

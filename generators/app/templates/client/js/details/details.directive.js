@@ -1,18 +1,18 @@
 (function() {
   'use strict';
 
-  angular.module('ape-node.details')
-    .directive('eleusisDetails', eleusisDetails);
+  angular.module('ape.details')
+    .directive('apeDetails', apeDetails);
 
   /*Directive Definition*/
-  function eleusisDetails() {
+  function apeDetails() {
     var directive = {
       templateUrl: 'js/details/details.template.html',
       scope: {
         parameters: '=',
         datafactory: '='
       },
-      controller: eleusisDetailsController,
+      controller: apeDetailsController,
       controllerAs: 'vm',
       bindToController: true // because the scope is isolated
     };
@@ -20,7 +20,7 @@
   }
 
   /*Directive Controller*/
-  function eleusisDetailsController(Details) {
+  function apeDetailsController(Details) {
     /* jshint validthis: true */
     var vm = this;
 
@@ -38,6 +38,6 @@
     }
 
   }
-  /*close eleusisDetailsController*/
+  /*close apeDetailsController*/
 
 })();

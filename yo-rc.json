@@ -1,0 +1,18 @@
+{
+  "generator-ape": {
+    "baseName": "Ape Stack Server",
+    "databaseType": "postgresql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "applicationType": "monolith",
+    "languages": [
+      "en"
+    ],
+    "serverPort": 3000,
+    "apeStackVersion": "0.0.0",
+    "appPrefix": "ape",
+    "clientPackageManager": "npm",
+    "clientFramework": "angular1"
+  }
+}

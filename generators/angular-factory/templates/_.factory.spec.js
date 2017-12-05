@@ -4,7 +4,7 @@
  *
  * <%= documentAuthor %>
  *
- * Test file for <%= controllerPath %>
+ * Test file for <%= factoryPath %>
  * <%= documentDescription %>
  *
  * Created with the Ape-Stack Yeoman Generator

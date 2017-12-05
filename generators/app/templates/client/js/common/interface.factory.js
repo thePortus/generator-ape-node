@@ -2,7 +2,7 @@
   'use strict';
 
   /*==== Getting App and Chaining Configuration Functions =====*/
-  angular.module('ape-node.common')
+  angular.module('ape.common')
     .factory('Interface', interfaceFactory);
 
   function interfaceFactory($state, $stateParams) {

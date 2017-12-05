@@ -1,22 +1,16 @@
-(function() {
-
-'use strict';
-
-(function() {
-    describe('<%= camelizedName %> Service Spec', function() {
-        // Initialize global variables
-        var <%= camelizedName %>;
-
-        beforeEach(module(ApplicationConfiguration.name));
-
-        beforeEach(inject(function(_ <%= camelizedName %>) {
-            <%= camelizedName %> = _<%= camelizedName %>_;
-            it('should be usable', inject(function() {
-                // The test logic
-                expect(<%= camelizedName %>).toBeDefined();
-            }));
-        }));
-    });
-}());
-
-})();
+/**
+ * <%= testPath %>
+ * @file
+ *
+ * <%= documentAuthor %>
+ *
+ * Test file for <%= servicePath %>
+ * <%= documentDescription %>
+ *
+ * Created with the Ape-Stack Yeoman Generator
+ * Copyright (c) 2016 David J. Thomas, dave.a.base@gmail.com
+ * http://thePortus.com | https://github.com/thePortus
+ *
+ * Formatted according to John Papa's Angular styleguide
+ * https://github.com/johnpapa/angular-styleguide
+ */

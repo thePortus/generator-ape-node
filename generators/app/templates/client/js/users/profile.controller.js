@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('ape-node.users')
+  angular.module('ape.users')
     .controller('ProfileCtrl', profileCtrl);
 
   function profileCtrl() {

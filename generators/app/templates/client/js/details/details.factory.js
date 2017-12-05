@@ -8,7 +8,7 @@ into information loaded into the details directive common to all tables.
 (function() {
   'use strict';
 
-  angular.module('ape-node.details')
+  angular.module('ape.details')
     .factory('Details', detailsFactory);
 
   function detailsFactory() {

@@ -1,29 +1,52 @@
+/**
+ * <%= servicePath %>
+ * @file
+ *
+ * <%= documentAuthor %>
+ *
+ * <%= documentDescription %>
+ *
+ * Created with the Ape-Stack Yeoman Generator
+ * Copyright (c) 2016 David J. Thomas, dave.a.base@gmail.com
+ * http://thePortus.com | https://github.com/thePortus
+ *
+ * Formatted according to John Papa's Angular styleguide
+ * https://github.com/johnpapa/angular-styleguide
+ */
+
 (function() {
     'use strict';
 
     angular.module('<%= slugifiedModuleName %>')
-        .factory('<%= camelizedName %>', <%= camelizedName %>);
+      .factory('<%= classifiedServiceName %>', <%= camelizedServiceName %>);
 
-    // factory wrapper function
-    function <%= camelizedName %> () {
-        return <%= camelizedName %>
-        FactoryCall;
+    // service wrapper function, use factories/services as args to bring them into function scope (e.g. $http)
+    function <%= camelizedServiceName %> () {
+      return new <%= classifiedServiceName %>Service();
 
-        // factory call function, load angular services as params
-        function <%= camelizedName %>
-        FactoryCall() {
-                return <%= camelizedName %>
-                Factory();
+        function <%= classifiedServiceName %>Service() {
+          /* jshint validthis: true */
+          var vm = this;
 
-                function <%= camelizedName %>
-                Factory() {
-                        /* jshint validthis: true */
-                        var vm = this;
+          /* properties */
 
-                        // TODO: add factory logic here
+          // vm.foo = 'bar';
 
-                    } // end factory
-            } // end factory call
-    } // end factory wrapper
+          /* methods */
+          // vm.someMethod = someFunction;
 
-})(); // end wrapper
+          // set factory initialize method
+          vm.initialize = initialize;
+
+          // initialization function call
+          vm.initialize();
+          /* functions */
+
+          function initialize() {
+            // post-load logic goes here
+          } // initialize
+
+        } // <%= classifiedServiceName %>Service
+    } // <%= camelizedServiceName %>
+
+})();

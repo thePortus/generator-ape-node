@@ -11,7 +11,7 @@
   const Models = require('../../models');
 
   router.get('/', (req, res) => res.status(200).send({
-    message: 'Welcome to the Ape-Node API',
+    message: 'Welcome to the ape API',
     routes: ['authenticate', 'users']
   }));
 

@@ -1,36 +1,47 @@
-/* SCOPE WRAPPER */
+/**
+ * <%= controllerPath %>
+ * @file
+ *
+ * <%= documentAuthor %>
+ *
+ * <%= documentDescription %>
+ *
+ * Created with the Ape-Stack Yeoman Generator
+ * Copyright (c) 2016 David J. Thomas, dave.a.base@gmail.com
+ * http://thePortus.com | https://github.com/thePortus
+ *
+ * Formatted according to John Papa's Angular styleguide
+ * https://github.com/johnpapa/angular-styleguide
+ */
+
 (function() {
+  'use strict';
 
-    'use strict';
+  angular.module('<%= slugifiedModuleName %>')
+    .controller('<%= classifiedControllerName %>Controller', <%= camelizedControllerName %>Controller);
 
-    /* ANGULAR CONTROLLER DECLARATION */
-    angular.module('<%= slugifiedModuleName %>')
-        .controller('<%= classifiedControllerName %>Controller', <%= classifiedControllerName %>Controller);
+  function <%= camelizedControllerName %>Controller() {
+    /* jshint validthis: true */
+    var vm = this;
 
+    /* properties */
 
-    /* CONTROLLER FUNCTION */
-    function <%= classifiedControllerName %>Controller() {
-            /* jshint validthis: true */
-            var vm = this;
+    // vm.foo = 'bar';
 
-            /* PROPERTY & METHOD DEFINITIONS */
-            //vm.foo = 'bar';
+    /* methods */
+    // vm.someMethod = someFunction;
 
-            /* INITIALIZATION */
-            vm.initialize = initialize;
-            vm.initialize();
+    // assign controller init function
+    vm.$onInit = initialize;
 
+    /* functions */
 
-            function initialize() {
+    function initialize() {
+      // post-load logic goes here
+    } // initialize
 
-                // POST CONTROLLER-LOAD LOGIC GOES HERE
+    // function someFunction() {}
 
-            }
+  } // <%= classifiedControllerName %>Controller
 
-
-            /* FUNCTIONS */
-
-        }
-        /* /CONTROLLER FUNCTION */
 })();
-/* SCOPE WRAPPER */

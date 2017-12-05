@@ -2,7 +2,7 @@
     'use strict';
 
   // Module Definition
-  angular.module('ape-node.table', [])
+  angular.module('ape.table', [])
     .filter('orderObjectBy', orderObjectBy);
 
   /* Custom Filters */

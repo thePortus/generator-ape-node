@@ -1,6 +1,6 @@
 {
-  "name": "generator-ape-node",
-  "version": "0.0.1",
+  "name": "generator-ape",
+  "version": "0.0.0",
   "description": "Angular-PostgreSQL-Express Stack Generator",
   "main": "./generators/app/index.js",
   "scripts": {
@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/thePortus/generator-ape-node#readme",
   "dependencies": {
+    "node-uuid": "^1.4.8",
+    "string-format": "^0.5.0",
     "yeoman-generator": "^1.1.1"
   }
 }

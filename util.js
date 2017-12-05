@@ -5,7 +5,7 @@ var fs = require('fs'),
     format = require('string-format');
 
 function listAngularModules() {
-    var modulesFolder = 'client/';
+    var modulesFolder = 'client/js/';
     // Add module choices
     return !fs.existsSync(modulesFolder) ? [] : fs.readdirSync(modulesFolder).reduce(function(memo, folder) {
         var stat = fs.statSync(modulesFolder + '/' + folder);

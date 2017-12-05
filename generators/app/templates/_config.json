@@ -1,27 +1,27 @@
 {
-  "secret": "ape-node",
+  "secret": "<%= appSecret %>",
   "development": {
-    "username": "postgres",
-    "password": null,
-    "database": "ape-node-dev",
-    "port": 5432,
-    "host": "127.0.0.1",
+    "username": "<%= dbUsername %>",
+    "password": "<%= dbPassword %>",
+    "database": "<%= devDbName %>",
+    "port": <%= dbPort %>,
+    "host": "<%= dbHost %>",
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
-    "password": null,
-    "database": "ape-node-test",
-    "port": 5432,
-    "host": "127.0.0.1",
+    "username": "<%= dbUsername %>",
+    "password": "<%= dbPassword %>",
+    "database": "<%= testDbName %>",
+    "port": <%= dbPort %>,
+    "host": "<%= dbHost %>",
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": null,
-    "database": "ape-node-production",
-    "port": 5432,
-    "host": "127.0.0.1",
+    "username": "<%= dbUsername %>",
+    "password": "<%= dbPassword %>",
+    "database": "<%= productionDbName %>",
+    "port": <%= dbDbPort %>,
+    "host": "<%= dbHost %>",
     "dialect": "postgres"
   }
 }

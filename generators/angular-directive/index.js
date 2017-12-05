@@ -1,49 +1,91 @@
 'use strict';
 
-var util = require('../util'),
-    fs = require('fs'),
-    yeoman = require('yeoman-generator'),
+const util = require('../../util'),
+    Generator = require('yeoman-generator'),
     format = require('string-format'),
-    _ = require('lodash'),
-    render = require('ejs').render;
+    chalk = require('chalk'),
+    _ = require('lodash');
 
-
-var DirectiveGenerator = yeoman.generators.NamedBase.extend({
-    askUser: function() {
-        var done = this.async();
-
-        var prompts = [{
-            type: 'list',
-            name: 'moduleName',
-            default: 'app',
-            message: 'Which module does this directive belongs to?',
-            choices: util.listAngularModules()
-        }, {
-            type: 'confirm',
-            name: 'haveTemplate',
-            default: 'true',
-            message: 'Does it require a dedicated template?'
-        }];
-
-        this.prompt(prompts, function(props) {
-            this.moduleName = props.moduleName;
-            this.haveTemplate = props.haveTemplate;
-            this.slugifiedModuleName = _.kebabCase(this.moduleName);
-
-            this.slugifiedName = _.kebabCase(this.name);
-            this.camelizedName = _.camelCase(this.slugifiedName);
-
-            done();
-        }.bind(this));
-    },
-
-    renderFiles: function() {
-        this.template('_.directive.js', format('client/{0}/{1}.directive.js', this.slugifiedModuleName, this.slugifiedName));
-        if (this.haveTemplate) {
-            this.template('_.directive.template.html', format('client/{0}/{1}.template.html', this.slugifiedModuleName, this.slugifiedName));
-        }
-        this.template('_.directive.spec.js', format('client/{0}/tests/{1}.directive.spec.js', this.slugifiedModuleName, this.slugifiedName));
-    }
-});
+let DirectiveGenerator = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
+  }
+  initializing() {
+    this.log(chalk.white('APE-Stack Angular Directive'));
+  }
+  prompting() {
+    let prompts = [{
+      type: 'list',
+      name: 'moduleName',
+      message: 'Which module does this directive belongs to?',
+      choices: util.listAngularModules(),
+      default: 'app'
+    }, {
+      type: 'string',
+      name: 'documentAuthor',
+      message: 'Who is (or are) the author(s) of this document?',
+      default: '[Author]'
+    }, {
+      type: 'string',
+      name: 'documentDescription',
+      message: 'Enter a short description of this directive',
+      default: '[Description]'
+    }];
+    return this.prompt(prompts).then((answers) => {
+      this.name = (this._args[0]);
+      this.yoInfo = {
+        moduleName: answers.moduleName,
+        documentAuthor: answers.documentAuthor,
+        documentDescription: answers.documentDescription
+      };
+      // generating different cases of module and directive names
+      this.yoInfo.slugifiedModuleName = _.kebabCase(this.yoInfo.moduleName);
+      this.yoInfo.camelizedModuleName = _.camelCase(this.yoInfo.slugifiedModuleName);
+      this.yoInfo.slugifiedDirectiveName = _.kebabCase(this.name);
+      this.yoInfo.camelizedDirectiveName = _.camelCase(this.yoInfo.slugifiedDirectiveName);
+      this.yoInfo.classifiedDirectiveName = _.capitalize(this.yoInfo.camelizedDirectiveName);
+      // building directive file path
+      this.yoInfo.directivePath = format(
+        'client/js/{0}/{1}.directive.js',
+        this.yoInfo.slugifiedModuleName,
+        this.yoInfo.slugifiedDirectiveName
+      );
+      // building test file path
+      this.yoInfo.testPath = format(
+        'client/js/{0}/tests/{1}.directive.spec.js', this.yoInfo.slugifiedModuleName,
+        this.yoInfo.slugifiedDirectiveName
+      );
+      // building less file path
+      this.yoInfo.lessPath = format(
+        'client/less/{0}/{1}.less', this.yoInfo.slugifiedModuleName,
+        this.yoInfo.slugifiedDirectiveName
+      );
+    });
+  }
+  writing() {
+    this.log(chalk.magenta('Rendering component template files...'));
+    // copy directive
+    this.fs.copyTpl(
+      this.templatePath('_.directive.js'),
+      this.destinationPath(this.yoInfo.directivePath),
+      this.yoInfo
+    );
+    // copy test
+    this.fs.copyTpl(
+      this.templatePath('_.directive.spec.js'),
+      this.destinationPath(this.yoInfo.testPath),
+      this.yoInfo
+    );
+    // copy less
+    this.fs.copyTpl(
+      this.templatePath('_.less'),
+      this.destinationPath(this.yoInfo.lessPath),
+      this.yoInfo
+    );
+  }
+  end() {
+    this.log(chalk.magenta('Finished creating directive'));
+  }
+};
 
 module.exports = DirectiveGenerator;

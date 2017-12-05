@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('ape-node.app')
+  angular.module('ape.app')
     .controller('LoginCtrl', loginCtrl);
 
   function loginCtrl() {

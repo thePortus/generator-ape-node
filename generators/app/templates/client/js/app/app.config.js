@@ -3,19 +3,19 @@
 
   // Module Definition
   angular.module(
-    'ape-node.app',
+    'ape.app',
     [
         'ui.router',
         'ngAria',
         'ngAnimate',
         'ngMaterial',
-        'ape-node.common',
-        'ape-node.users',
-        'ape-node.table',
-        'ape-node.details'
+        'ape.common',
+        'ape.users',
+        'ape.table',
+        'ape.details'
     ]
   )
-    .constant('APP_TITLE', 'Ape-Node Server')
+    .constant('APP_TITLE', 'APE Stack Server')
     .constant('APP_VERSION', '0.0.0')
     .constant('APP_CREDITS', 'By David Thomas')
     .constant('APP_RIGHTS', 'Copyright, © 2017')

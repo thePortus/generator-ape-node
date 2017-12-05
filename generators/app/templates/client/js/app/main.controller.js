@@ -2,7 +2,7 @@
     'use strict';
 
     // Main Controller Definition
-    angular.module('ape-node.app')
+    angular.module('ape.app')
         .controller('mainController', mainCtrl);
 
     function mainCtrl() {

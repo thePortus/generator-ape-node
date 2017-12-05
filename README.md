@@ -1,4 +1,4 @@
-# generator-ape-node
+# generator-ape
 
 **Fullstack Angular-PostgreSQL-ExpressJS-NodeJS Starter**
 

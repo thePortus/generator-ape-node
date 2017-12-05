@@ -6,18 +6,18 @@ const util = require('../../util'),
     chalk = require('chalk'),
     _ = require('lodash');
 
-let ServiceGenerator = class extends Generator {
+let FactoryGenerator = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
   }
   initializing() {
-    this.log(chalk.white('APE-Stack Angular Service'));
+    this.log(chalk.white('APE-Stack Angular Factory'));
   }
   prompting() {
     let prompts = [{
       type: 'list',
       name: 'moduleName',
-      message: 'Which module does this service belongs to?',
+      message: 'Which module does this factory belongs to?',
       choices: util.listAngularModules(),
       default: 'app'
     }, {
@@ -28,7 +28,7 @@ let ServiceGenerator = class extends Generator {
     }, {
       type: 'string',
       name: 'documentDescription',
-      message: 'Enter a short description of this service',
+      message: 'Enter a short description of this factory',
       default: '[Description]'
     }];
     return this.prompt(prompts).then((answers) => {
@@ -38,42 +38,42 @@ let ServiceGenerator = class extends Generator {
         documentAuthor: answers.documentAuthor,
         documentDescription: answers.documentDescription
       };
-      // generating different cases of module and service names
+      // generating different cases of module and factory names
       this.yoInfo.slugifiedModuleName = _.kebabCase(this.yoInfo.moduleName);
       this.yoInfo.camelizedModuleName = _.camelCase(this.yoInfo.slugifiedModuleName);
-      this.yoInfo.slugifiedServiceName = _.kebabCase(this.name);
-      this.yoInfo.camelizedServiceName = _.camelCase(this.yoInfo.slugifiedServiceName);
-      this.yoInfo.classifiedServiceName = _.capitalize(this.yoInfo.camelizedServiceName);
-      // determining destination of service file
-      this.yoInfo.servicePath = format(
-        'client/js/{0}/{1}.service.js',
+      this.yoInfo.slugifiedFactoryName = _.kebabCase(this.name);
+      this.yoInfo.camelizedFactoryName = _.camelCase(this.yoInfo.slugifiedFactoryName);
+      this.yoInfo.classifiedFactoryName = _.capitalize(this.yoInfo.camelizedFactoryName);
+      // determining destination of factory file
+      this.yoInfo.factoryPath = format(
+        'client/js/{0}/{1}.factory.js',
         this.yoInfo.slugifiedModuleName,
-        this.yoInfo.slugifiedServiceName
+        this.yoInfo.slugifiedFactoryName
       );
-      // determining destination of service test file
+      // determining destination of factory test file
       this.yoInfo.testPath = format(
-        'client/js/{0}/tests/{1}.service.spec.js', this.yoInfo.slugifiedModuleName,
-        this.yoInfo.slugifiedServiceName
+        'client/js/{0}/tests/{1}.factory.spec.js', this.yoInfo.slugifiedModuleName,
+        this.yoInfo.slugifiedFactoryName
       );
     });
   }
   writing() {
     this.log(chalk.magenta('Rendering component template files...'));
     this.fs.copyTpl(
-      this.templatePath('_.service.js'),
-      this.destinationPath(this.yoInfo.servicePath),
+      this.templatePath('_.factory.js'),
+      this.destinationPath(this.yoInfo.factoryPath),
       this.yoInfo
     );
 
     this.fs.copyTpl(
-      this.templatePath('_.service.spec.js'),
+      this.templatePath('_.factory.spec.js'),
       this.destinationPath(this.yoInfo.testPath),
       this.yoInfo
     );
   }
   end() {
-    this.log(chalk.magenta('Finished creating service'));
+    this.log(chalk.magenta('Finished creating factory'));
   }
 };
 
-module.exports = ServiceGenerator;
+module.exports = FactoryGenerator;

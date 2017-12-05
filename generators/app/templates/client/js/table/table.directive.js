@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  angular.module('ape-node.table')
-    .directive('eleusisTable', eleusisTable);
+  angular.module('ape.table')
+    .directive('apeTable', apeTable);
 
   /*Directive Definition*/
-  function eleusisTable() {
+  function apeTable() {
     var directive = {
       templateUrl: 'js/table/table.template.html',
       scope: {
@@ -14,7 +14,7 @@
         detailTable: '@',
         style: '@'
       },
-      controller: eleusisTableController,
+      controller: apeTableController,
       controllerAs: 'vm',
       bindToController: true // because the scope is isolated
     };
@@ -22,7 +22,7 @@
   }
 
   /*Directive Controller*/
-  function eleusisTableController(Table) {
+  function apeTableController(Table) {
     /* jshint validthis: true */
     var vm = this;
 
@@ -57,6 +57,6 @@
     }
 
   }
-  /*close eleusisTableController*/
+  /*close apeTableController*/
 
 })();

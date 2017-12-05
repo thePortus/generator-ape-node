@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('ape-node.common')
+  angular.module('ape.common')
     .directive('apeLogin', apeLogin);
 
   /*Directive Definition*/

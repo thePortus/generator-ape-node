@@ -1,18 +1,18 @@
 (function() {
   'use strict';
 
-  angular.module('ape-node.common')
-    .directive('eleusisHeader', eleusisHeader);
+  angular.module('ape.common')
+    .directive('apeHeader', apeHeader);
 
   /*Directive Definition*/
-  function eleusisHeader() {
+  function apeHeader() {
     var directive = {
       templateUrl: 'js/common/header.template.html',
       scope: {
         style: '=',
         content: '='
       },
-      controller: eleusisHeaderController,
+      controller: apeHeaderController,
       controllerAs: 'vm',
       bindToController: true // because the scope is isolated
     };
@@ -20,7 +20,7 @@
   }
 
   /*Directive Controller*/
-  function eleusisHeaderController() {
+  function apeHeaderController() {
     /* jshint validthis: true */
     var vm = this;
 

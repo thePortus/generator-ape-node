@@ -1,11 +1,11 @@
 'use strict';
 
-var util = require('../util'),
-    fs = require('fs'),
-    yeoman = require('yeoman-generator'),
-    format = require('string-format'),
-    _ = require('lodash'),
-    render = require('ejs').render;
+const util = require('../../util');
+const fs = require('fs');
+const yeoman = require('yeoman-generator');
+const format = require('string-format');
+const _ = require('lodash');
+const render = require('ejs').render;
 
 
 
