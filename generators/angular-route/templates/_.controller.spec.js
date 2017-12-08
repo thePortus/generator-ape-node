@@ -1,41 +1,14 @@
-(function() {
-
-'use strict';
-
-(function() {
-    describe('<%= classifiedControllerName %> Controller Tests', function() {
-        // Initialize global variables
-        var <%= classifiedControllerName %>
-        Controller, scope, $httpBackend;
-
-        beforeEach(module(ApplicationConfiguration.name));
-
-        beforeEach(inject(function($controller, $rootScope, _$httpBackend_, _ <%= camelizedModuleName %>
-            FakeData_) {
-            // Set a new global scope
-            scope = $rootScope.$new();
-            $httpBackend = _$httpBackend_;
-            <%= classifiedControllerName %>
-            Controller = $controller('<%= classifiedControllerName %>Controller', {
-                $scope: scope
-            });
-
-            describe('scope', function() {
-                it('should be usable', function() {
-                    expect(scope).toBeDefined();
-                });
-            });
-
-            describe('controller', function() {
-                it('should be usable', function() {
-                    expect(<%= classifiedControllerName %>
-                        Controller).toBeDefined();
-                });
-            });
-
-        }));
-
-    });
-}());
-
-})();
+/**
+ * <%= testPath %>
+ * @file
+ *
+ * <%= projectName %> : <%= moduleName %> : <%= componentName %>
+ * <%= documentAuthor %>
+ *
+ * Test file for <%= componentPath %>
+ * <%= documentDescription %>
+ *
+ * Created with the Ape-Stack Yeoman Generator
+ * Copyright (c) 2016 David J. Thomas, dave.a.base@gmail.com
+ * http://thePortus.com | https://github.com/thePortus
+ */

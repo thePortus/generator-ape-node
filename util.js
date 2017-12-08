@@ -47,6 +47,10 @@ function appendInFile(filePath, appendedValue) {
     return writeFileFromString(readFileAsString(filePath) + appendedValue, filePath);
 }
 
+function writeJson(filepath, json) {
+  writeFileFromString(JSON.stringify(json, null, '\t'), filepath);
+}
+
 module.exports = {
     listAngularModules: listAngularModules,
     readdirrecSync: readdirrecSync,
@@ -59,5 +63,6 @@ module.exports = {
         urlpatterns: /\n*urlpatterns\s*=\s*\[/i,
         leaveMePy: /#\s*leave me here\s*#/i,
         leaveMeJs: /\/\*\s*leave me here\s*\*\//i
-    }
+    },
+    writeJson: writeJson
 };

@@ -1,35 +1,46 @@
-// wrapper function
+/**
+ * <%= componentPath %>
+ * @file
+ *
+ * <%= projectName %> : <%= moduleName %> : <%= componentName %>
+ * <%= documentAuthor %>
+ *
+ * <%= documentDescription %>
+ *
+ * Created with the Ape-Stack Yeoman Generator
+ * Copyright (c) 2016 David J. Thomas, dave.a.base@gmail.com
+ * http://thePortus.com | https://github.com/thePortus
+ *
+ * Formatted according to John Papa's Angular style guide
+ * https://github.com/johnpapa/angular-styleguide
+ */
+
 (function() {
 
-    'use strict';
+  'use strict';
 
-    angular.module('<%= slugifiedModuleName %>')
-        .factory('<%= camelizedName %>Modal', <%= classifiedName %>
-            Modal)
-        .controller('<%= classifiedName %>ModalController', <%= classifiedName %>
-            ModalController);
+  angular.module('<%= sluggifiedProjectName %>.<%= slugifiedModuleName %>')
+    .factory('<%= camelizedComponentName %>Modal', <%= classifiedComponentName %>Modal)
+    .controller('<%= classifiedComponentName %>ModalController', <%= classifiedComponentName %>ModalController);
 
-    function <%= classifiedName %>
-    Modal($modal, staticPath) {
+  function <%= classifiedComponentName %>Modal($modal, staticPath) {
 
-            <%= classifiedName %>
-            Modal.open = function(options) {
-                return $modal.open(angular.extend({
-                    templateUrl: staticPath('<%= slugifiedModuleName %>/templates/<%= slugifiedModuleName %>.<%= slugifiedName %>.template.html'),
-                    controller: '<%= classifiedName %>ModalController',
-                    controllerAs: 'ctrl',
-                    size: '<%= modalSize %>'
-                }, options || {}));
-            };
-            return <%= classifiedName %>
-            Modal;
+    <%= classifiedComponentName %>Modal.open = function(options) {
+        return $modal.open(angular.extend({
+            templateUrl: staticPath('js/<%= slugifiedModuleName %>/<%= slugifiedComponentName %>.modal.template.html'),
+            controller: '<%= classifiedComponentName %>ModalController',
+            controllerAs: 'vm',
+            size: '<%= modalSize %>'
+        }, options || {}));
+    };
+    return <%= classifiedComponentName %>Modal;
 
-        } // end factory function
+  } // <%= classifiedComponentName %>Modal
 
-    function($scope, $modalInstance) {
+  function <%= classifiedComponentName %>ModalController($modalInstance) {
 
-        // TODO: add modal controller logic here
+      // add modal controller logic here
 
-    } // end controller function
+  } // <%= classifiedComponentName %>ModalController
 
-})(); // end wrapper
+})();

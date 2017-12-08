@@ -1,7 +1,8 @@
 /**
- * <%= servicePath %>
+ * <%= classifiedComponentName %>
  * @file
  *
+ * <%= projectName %> : <%= moduleName %> : <%= componentName %>
  * <%= documentAuthor %>
  *
  * <%= documentDescription %>
@@ -17,14 +18,14 @@
 (function() {
     'use strict';
 
-    angular.module('<%= slugifiedModuleName %>')
-      .factory('<%= classifiedServiceName %>', <%= camelizedServiceName %>);
+    angular.module('<%= sluggifiedProjectName %>.<%= slugifiedModuleName %>')
+      .factory('<%= classifiedComponentName %>', <%= camelizedComponentName %>);
 
     // service wrapper function, use factories/services as args to bring them into function scope (e.g. $http)
-    function <%= camelizedServiceName %> () {
-      return new <%= classifiedServiceName %>Service();
+    function <%= camelizedComponentName %> () {
+      return new <%= classifiedComponentName %>Service();
 
-        function <%= classifiedServiceName %>Service() {
+        function <%= classifiedComponentName %>Service() {
           /* jshint validthis: true */
           var vm = this;
 
@@ -46,7 +47,7 @@
             // post-load logic goes here
           } // initialize
 
-        } // <%= classifiedServiceName %>Service
-    } // <%= camelizedServiceName %>
+        } // <%= classifiedComponentName %>Service
+    } // <%= camelizedComponentName %>
 
 })();

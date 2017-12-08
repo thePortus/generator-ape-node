@@ -14,6 +14,8 @@ let FactoryGenerator = class extends Generator {
     this.log(chalk.white('APE-Stack Angular Factory'));
   }
   prompting() {
+    // read project name from app package.json
+  let projectPackageJson = require(this.destinationPath('package.json'));
     let prompts = [{
       type: 'list',
       name: 'moduleName',
@@ -24,52 +26,64 @@ let FactoryGenerator = class extends Generator {
       type: 'string',
       name: 'documentAuthor',
       message: 'Who is (or are) the author(s) of this document?',
-      default: '[Author]'
+      default: projectPackageJson.author
     }, {
       type: 'string',
       name: 'documentDescription',
-      message: 'Enter a short description of this factory',
+      message: 'Enter a short description of this factory (optional)',
       default: '[Description]'
     }];
     return this.prompt(prompts).then((answers) => {
       this.name = (this._args[0]);
       this.yoInfo = {
+        // read project name from app package.json
+        projectName: projectPackageJson.name,
+        sluggifiedProjectName: _.kebabCase(projectPackageJson.name),
         moduleName: answers.moduleName,
+        componentName: this.name,
         documentAuthor: answers.documentAuthor,
         documentDescription: answers.documentDescription
       };
-      // generating different cases of module and factory names
+      // generating different cases of module and component names
       this.yoInfo.slugifiedModuleName = _.kebabCase(this.yoInfo.moduleName);
       this.yoInfo.camelizedModuleName = _.camelCase(this.yoInfo.slugifiedModuleName);
-      this.yoInfo.slugifiedFactoryName = _.kebabCase(this.name);
-      this.yoInfo.camelizedFactoryName = _.camelCase(this.yoInfo.slugifiedFactoryName);
-      this.yoInfo.classifiedFactoryName = _.capitalize(this.yoInfo.camelizedFactoryName);
-      // determining destination of factory file
-      this.yoInfo.factoryPath = format(
+      this.yoInfo.slugifiedComponentName = _.kebabCase(this.name);
+      this.yoInfo.camelizedComponentName = _.camelCase(this.yoInfo.slugifiedComponentName);
+      this.yoInfo.classifiedComponentName = _.capitalize(this.yoInfo.camelizedComponentName);
+      // build component filepath
+      this.yoInfo.componentPath = format(
         'client/js/{0}/{1}.factory.js',
         this.yoInfo.slugifiedModuleName,
-        this.yoInfo.slugifiedFactoryName
+        this.yoInfo.slugifiedComponentName
       );
-      // determining destination of factory test file
+      // build test filepath
       this.yoInfo.testPath = format(
-        'client/js/{0}/tests/{1}.factory.spec.js', this.yoInfo.slugifiedModuleName,
-        this.yoInfo.slugifiedFactoryName
+        'client/js/{0}/tests/{1}.factory.spec.js',
+        this.yoInfo.slugifiedModuleName,
+        this.yoInfo.slugifiedComponentName
       );
     });
   }
   writing() {
     this.log(chalk.magenta('Rendering component template files...'));
+    // copy component file
     this.fs.copyTpl(
       this.templatePath('_.factory.js'),
-      this.destinationPath(this.yoInfo.factoryPath),
+      this.destinationPath(this.yoInfo.componentPath),
       this.yoInfo
     );
-
+    // copy test file
     this.fs.copyTpl(
       this.templatePath('_.factory.spec.js'),
       this.destinationPath(this.yoInfo.testPath),
       this.yoInfo
     );
+    // load project's assets.json
+    let projectAssetsJson = require(this.destinationPath('assets.json'));
+    // add relative paths of new component files, excluding the static directory prefixes
+    projectAssetsJson.source.js.push(this.yoInfo.componentPath.replace('client/js/', ''));
+    // save over the previous version
+    util.writeJson(this.destinationPath('assets.json'), projectAssetsJson);
   }
   end() {
     this.log(chalk.magenta('Finished creating factory'));

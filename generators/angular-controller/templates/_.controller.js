@@ -1,7 +1,8 @@
 /**
- * <%= controllerPath %>
+ * <%= componentPath %>
  * @file
  *
+ * <%= projectName %> : <%= moduleName %> : <%= componentName %>
  * <%= documentAuthor %>
  *
  * <%= documentDescription %>
@@ -10,17 +11,17 @@
  * Copyright (c) 2016 David J. Thomas, dave.a.base@gmail.com
  * http://thePortus.com | https://github.com/thePortus
  *
- * Formatted according to John Papa's Angular styleguide
+ * Formatted according to John Papa's Angular style guide
  * https://github.com/johnpapa/angular-styleguide
  */
 
 (function() {
   'use strict';
 
-  angular.module('<%= slugifiedModuleName %>')
-    .controller('<%= classifiedControllerName %>Controller', <%= camelizedControllerName %>Controller);
+  angular.module('<%= sluggifiedProjectName %>.<%= slugifiedModuleName %>')
+    .controller('<%= classifiedComponentName %>Controller', <%= camelizedComponentName %>Controller);
 
-  function <%= camelizedControllerName %>Controller() {
+  function <%= camelizedComponentName %>Controller() {
     /* jshint validthis: true */
     var vm = this;
 
@@ -42,6 +43,6 @@
 
     // function someFunction() {}
 
-  } // <%= classifiedControllerName %>Controller
+  } // <%= classifiedComponentName %>Controller
 
 })();

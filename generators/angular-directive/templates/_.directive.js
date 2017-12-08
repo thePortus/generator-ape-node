@@ -1,7 +1,8 @@
 /**
- * <%= directivePath %>
+ * <%= componentPath %>
  * @file
  *
+ * <%= projectName %> : <%= moduleName %> : <%= componentName %>
  * <%= documentAuthor %>
  *
  * <%= documentDescription %>
@@ -11,31 +12,31 @@
  * http://thePortus.com | https://github.com/thePortus
  *
  * Formatted according to John Papa's Angular styleguide
- * https://github.com/johnpapa/angular-styleguide
+ * https://github.com/johnpapa/angular-style guide
  */
 
 (function() {
   'use strict';
 
-  angular.module('<%= slugifiedModuleName %>')
-    .directive('<%= camelizedDirectiveName %>', <%= camelizedDirectiveName %>);
+  angular.module('<%= sluggifiedProjectName %>.<%= slugifiedModuleName %>')
+    .directive('<%= camelizedComponentName %>', <%= camelizedComponentName %>);
 
-  function <%= camelizedDirectiveName %> (staticPath) {
+  function <%= camelizedComponentName %> (staticPath) {
     var directive = {
-      templateUrl: staticPath('js/<%= slugifiedModuleName %>/<%= slugifiedDirectiveName %>.template.html'),
+      templateUrl: staticPath('js/<%= slugifiedModuleName %>/<%= slugifiedComponentName %>.template.html'),
       // variables to pass to directive controller
       scope: {
           // foo: '=',
           // bar: '=',
       },
-      controller: <%= camelizedDirectiveName %>Controller,
+      controller: <%= camelizedComponentName %>Controller,
       controllerAs: 'vm',
       bindToController: true // b/c isolated scope
     };
     return directive;
   }
 
-  function <%= camelizedDirectiveName %>Controller() {
+  function <%= camelizedComponentName %>Controller() {
     /* jshint validthis: true */
     var vm = this;
 
@@ -57,6 +58,6 @@
 
     // function someFunction() {}
 
-  } // <%= camelizedDirectiveName %>Controller
+  } // <%= camelizedComponentName %>Controller
 
 })();

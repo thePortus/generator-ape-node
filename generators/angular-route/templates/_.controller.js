@@ -1,38 +1,48 @@
-// wrapper
+/**
+ * <%= componentPath %>
+ * @file
+ *
+ * <%= projectName %> : <%= moduleName %> : <%= componentName %>
+ * <%= documentAuthor %>
+ *
+ * <%= documentDescription %>
+ *
+ * Created with the Ape-Stack Yeoman Generator
+ * Copyright (c) 2016 David J. Thomas, dave.a.base@gmail.com
+ * http://thePortus.com | https://github.com/thePortus
+ *
+ * Formatted according to John Papa's Angular style guide
+ * https://github.com/johnpapa/angular-styleguide
+ */
+
 (function() {
+  'use strict';
 
-    'use strict';
-    /**
-     * <%= classifiedControllerName %> controller
-     *
-     * Associated view: public/`<%= slugifiedModuleName %>/views/<%= slugifiedModuleName %>.<%= slugifiedViewName %>.view.html`
-     */
-    angular.module('<%= slugifiedModuleName %>')
-        .controller('<%= classifiedControllerName %>Controller', <%= classifiedControllerName %>
-            Controller);
+  angular.module('<%= sluggifiedProjectName %>.<%= slugifiedModuleName %>')
+    .controller('<%= classifiedComponentName %>Controller', <%= camelizedComponentName %>Controller);
 
-    function <%= camelizedName %>
-    Controller() {
+  function <%= camelizedComponentName %>Controller() {
+    /* jshint validthis: true */
+    var vm = this;
 
-            /* jshint validthis: true */
-            var vm = this;
+    /* properties */
 
-            /* Properties and Methods */
-            // vm.foo = bar
-            vm.initialize = initialize;
+    // vm.foo = 'bar';
 
-            // Calling initialize() on load
-            vm.initialize();
+    /* methods */
+    // vm.someMethod = someFunction;
 
-            /* ====== Method Functions ===== */
+    // assign controller init function
+    vm.$onInit = initialize;
 
-            /**
-             * Initializes controller properties after controller load
-             */
-            function initialize() {
+    /* functions */
 
-            } // end initialize()
+    function initialize() {
+      // post-load logic goes here
+    } // initialize
 
-        } // end controller function
+    // function someFunction() {}
 
-})(); // end wrapper
+  } // <%= classifiedComponentName %>Controller
+
+})();

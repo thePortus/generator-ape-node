@@ -1,7 +1,8 @@
 /**
- * <%= factoryPath %>
+ * <%= componentPath %>
  * @file
  *
+ * <%= projectName %> : <%= moduleName %> : <%= componentName %>
  * <%= documentAuthor %>
  *
  * <%= documentDescription %>
@@ -11,24 +12,24 @@
  * http://thePortus.com | https://github.com/thePortus
  *
  * Formatted according to John Papa's Angular styleguide
- * https://github.com/johnpapa/angular-styleguide
+ * https://github.com/johnpapa/angular-style guide
  */
 
 (function() {
   'use strict';
 
-  angular.module('<%= slugifiedModuleName %>')
-    .factory('<%= classifiedFactoryName %>', <%= camelizedFactoryName %>);
+  angular.module('<%= sluggifiedProjectName %>.<%= slugifiedModuleName %>')
+    .factory('<%= classifiedComponentName %>', <%= camelizedComponentName %>);
 
   // factory wrapper function, use factories/services as args to bring them into function scope (e.g. $http)
-  function <%= camelizedFactoryName %> () {
-    return <%= camelizedFactoryName %>FactoryCall;
+  function <%= camelizedComponentName %> () {
+    return <%= camelizedComponentName %>FactoryCall;
 
     // put the args you want used to construct the factory here
-    function <%= camelizedFactoryName %>FactoryCall(/*args_here*/) {
-      return new <%= classifiedFactoryName %>Factory(/*args_here*/);
+    function <%= camelizedComponentName %>FactoryCall(/*args_here*/) {
+      return new <%= classifiedComponentName %>Factory(/*args_here*/);
 
-      function <%= classifiedFactoryName %>Factory(/*args_here*/) {
+      function <%= classifiedComponentName %>Factory(/*args_here*/) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -52,8 +53,8 @@
 
         // function someFunction() {}
 
-      } // <%= classifiedFactoryName %>Factory
-    } // <%= camelizedFactoryName %>FactoryCall
-  } // <%= camelizedFactoryName %>
+      } // <%= classifiedComponentName %>Factory
+    } // <%= camelizedComponentName %>FactoryCall
+  } // <%= camelizedComponentName %>
 
 })();

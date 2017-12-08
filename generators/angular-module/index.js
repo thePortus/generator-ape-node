@@ -1,109 +1,99 @@
 'use strict';
 
-var util = require('../util'),
-    yeoman = require('yeoman-generator'),
-    fs = require('fs'),
-    format = require('string-format'),
-    _ = require('lodash'),
-    mkdirp = require('mkdirp'),
-    render = require('ejs').render;
+const fs = require('fs'),
+  util = require('../../util'),
+  Generator = require('yeoman-generator'),
+  format = require('string-format'),
+  chalk = require('chalk'),
+  _ = require('lodash'),
+  render = require('ejs').render;
 
 
-var ModuleGenerator = yeoman.generators.NamedBase.extend({
-    init: function() {
-        this.slugifiedName = _.kebabCase(this.name);
-        this.camelizedName = _.camelCase(this.slugifiedName);
-        // check  module does not  exist already
-        if (this.slugifiedName === '_') {
-            throw new Error('module "_" is protected');
-        }
-        if (util.listAngularModules().indexOf(this.slugifiedName) !== -1) {
-            throw new Error(format('module "{}" already exists', this.name));
-        }
-    },
+let ModuleGenerator = class extends Generator {
+  constructor(args, opts) {
+    super(args, opts);
+  }
+  initializing() {
+    this.log(chalk.white('APE-Stack Angular Module'));
+  }
+  prompting() {
+  let projectPackageJson = require(this.destinationPath('package.json'));
+    let prompts = [{
+      type: 'string',
+      name: 'documentAuthor',
+      message: 'Who is (or are) the author(s) of this document?',
+      default: projectPackageJson.author
+    }, {
+      type: 'string',
+      name: 'documentDescription',
+      message: 'Enter a short description of this module (optional)',
+      default: '[Description]'
+    }];
+    return this.prompt(prompts).then((answers) => {
+      this.name = (this._args[0]);
+      this.yoInfo = {
+        // read project name from app package.json
+        projectName: projectPackageJson.name,
+        sluggifiedProjectName: _.kebabCase(projectPackageJson.name),
+        componentName: this.name,
+        documentAuthor: answers.documentAuthor,
+        documentDescription: answers.documentDescription
+      };
+      // generating different cases of module and component names
+      this.yoInfo.slugifiedComponentName = _.kebabCase(this.name);
+      this.yoInfo.camelizedComponentName = _.camelCase(this.yoInfo.slugifiedComponentName);
+      this.yoInfo.classifiedComponentName = _.capitalize(this.yoInfo.camelizedComponentName);
 
-    askForModuleFolders: function() {
-        var done = this.async();
+      // build component filepath
+      this.yoInfo.componentPath = format(
+        'client/js/{0}/{0}.config.js',
+        this.yoInfo.slugifiedComponentName
+      );
 
-        var prompts = [{
-            type: 'checkbox',
-            name: 'folders',
-            message: 'Which folders would you like your module to include?',
-            choices: [{
-                value: 'addConstantsFolder',
-                name: 'constants',
-                checked: false
-            }, {
-                value: 'addControllersFolder',
-                name: 'controllers',
-                checked: false
-            }, {
-                value: 'addDirectivesFolder',
-                name: 'directives',
-                checked: true
-            }, {
-                value: 'addFiltersFolder',
-                name: 'filters',
-                checked: false
-            }, {
-                value: 'addImagesFolder',
-                name: 'img',
-                checked: false
-            }, {
-                value: 'addModalsFolder',
-                name: 'modals',
-                checked: false
-            }, {
-                value: 'addServicesFolder',
-                name: 'services',
-                checked: false
-            }, {
-                value: 'addTemplatesFolder',
-                name: 'templates',
-                checked: false
-            }, {
-                value: 'addViewsFolder',
-                name: 'views',
-                checked: false
-            }]
-        }];
+      // build fake data filepath
+      this.yoInfo.fakeDataPath = format(
+        'client/js/{0}/tests/{0}.fake-data.js',
+        this.yoInfo.slugifiedComponentName
+      );
+    });
+  }
+  writing() {
+    // add module as dependency to the main app declaration
+    let appConfigFile = format('{0}/client/js/app/app.config.js', process.cwd());
+    if (fs.existsSync(appConfigFile)) {
+        // Read the source routes file content
+        let appConfigContent = util.readFileAsString(appConfigFile).replace(
+          '/* leave me here: auto module addition */',
+          render(this.fs.read(this.templatePath('add-module.js')), this.yoInfo)
+        );
 
-        this.prompt(prompts, function(props) {
-            this.addConstantsFolder = _.contains(props.folders, 'addConstantsFolder');
-            this.addControllersFolder = _.contains(props.folders, 'addControllersFolder');
-            this.addDirectivesFolder = _.contains(props.folders, 'addDirectivesFolder');
-            this.addFiltersFolder = _.contains(props.folders, 'addFiltersFolder');
-            this.addImagesFolder = _.contains(props.folders, 'addImagesFolder');
-            this.addServicesFolder = _.contains(props.folders, 'addServicesFolder');
-            this.addTemplatesFolder = _.contains(props.folders, 'addTemplatesFolder');
-            this.addViewsFolder = _.contains(props.folders, 'addViewsFolder');
-            this.addModalsFolder = _.contains(props.folders, 'addModalsFolder');
-
-            done();
-        }.bind(this));
-    },
-
-    renderModule: function() {
-        // Create module folder
-        mkdirp.sync(format('public/{0}', this.slugifiedName));
-
-        // Create module sub-folders
-        if (this.addConstantsFolder) {mkdirp.sync(format('client/{0}/constants', this.slugifiedName));}
-        if (this.addControllersFolder) {mkdirp.sync(format('client/{0}/controllers', this.slugifiedName));}
-        mkdirp.sync(format('client/styles/{0}', this.slugifiedName));
-        if (this.addDirectivesFolder) {mkdirp.sync(format('client/{0}/directives', this.slugifiedName));}
-        if (this.addFiltersFolder) {mkdirp.sync(format('client/{0}/filters', this.slugifiedName));}
-        if (this.addImagesFolder) {mkdirp.sync(format('client/{0}/img', this.slugifiedName));}
-        if (this.addServicesFolder) {mkdirp.sync(format('client/{0}/services', this.slugifiedName));}
-        if (this.addTemplatesFolder) {mkdirp.sync(format('client/{0}/templates', this.slugifiedName));}
-        mkdirp.sync(format('public/{0}/tests', this.slugifiedName));
-        if (this.addViewsFolder) {mkdirp.sync(format('client/{0}/views', this.slugifiedName));}
-        if (this.addModalsFolder) {mkdirp.sync(format('client/{0}/modals', this.slugifiedName));}
-
-        // Render angular module definition
-        this.template('_.module.js', format('public/{0}/{0}.module.js', this.slugifiedName));
-        this.template('_.fake-data.js', format('public/{0}/tests/{0}.fake-data.js', this.slugifiedName));
+        // Save route file
+        util.writeFileFromString(appConfigContent, appConfigFile);
     }
-});
+    this.log(chalk.magenta('Rendering component template files...'));
+    // copy component file
+    this.fs.copyTpl(
+      this.templatePath('_.module.js'),
+      this.destinationPath(this.yoInfo.componentPath),
+      this.yoInfo
+    );
+    // copy test data file
+    this.fs.copyTpl(
+      this.templatePath('_.fake-data.js'),
+      this.destinationPath(this.yoInfo.fakeDataPath),
+      this.yoInfo
+    );
+    // load project's assets.json
+    let projectAssetsJson = require(this.destinationPath('assets.json'));
+    // add relative paths of new component files, excluding the static directory prefixes
+    projectAssetsJson.source.js.push(this.yoInfo.componentPath.replace('client/js/', ''));
+    projectAssetsJson.source.js.push(this.yoInfo.fakeDataPath.replace('client/js/', ''));
+    // save over the previous version
+    util.writeJson(this.destinationPath('assets.json'), projectAssetsJson);
+  }
+  end() {
+    this.log(chalk.magenta('Finished creating module'));
+  }
+};
 
 module.exports = ModuleGenerator;
