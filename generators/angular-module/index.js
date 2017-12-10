@@ -9,7 +9,7 @@ const fs = require('fs'),
   render = require('ejs').render;
 
 
-let ModuleGenerator = class extends Generator {
+let AngularModuleGenerator = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
   }
@@ -17,7 +17,8 @@ let ModuleGenerator = class extends Generator {
     this.log(chalk.white('APE-Stack Angular Module'));
   }
   prompting() {
-  let projectPackageJson = require(this.destinationPath('package.json'));
+    // read project name from app package.json
+    let projectPackageJson = require(this.destinationPath('package.json'));
     let prompts = [{
       type: 'string',
       name: 'documentAuthor',
@@ -96,4 +97,4 @@ let ModuleGenerator = class extends Generator {
   }
 };
 
-module.exports = ModuleGenerator;
+module.exports = AngularModuleGenerator;

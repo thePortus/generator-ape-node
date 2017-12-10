@@ -6,7 +6,7 @@ const util = require('../../util'),
     chalk = require('chalk'),
     _ = require('lodash');
 
-let ControllerGenerator = class extends Generator {
+let AngularControllerGenerator = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
   }
@@ -15,7 +15,7 @@ let ControllerGenerator = class extends Generator {
   }
   prompting() {
     // read project name from app package.json
-  let projectPackageJson = require(this.destinationPath('package.json'));
+    let projectPackageJson = require(this.destinationPath('package.json'));
     let prompts = [{
       type: 'list',
       name: 'moduleName',
@@ -90,4 +90,4 @@ let ControllerGenerator = class extends Generator {
   }
 };
 
-module.exports = ControllerGenerator;
+module.exports = AngularControllerGenerator;

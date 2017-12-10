@@ -6,7 +6,7 @@ const util = require('../../util'),
     chalk = require('chalk'),
     _ = require('lodash');
 
-let ServiceGenerator = class extends Generator {
+let AngularServiceGenerator = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
   }
@@ -14,7 +14,8 @@ let ServiceGenerator = class extends Generator {
     this.log(chalk.white('APE-Stack Angular Service'));
   }
   prompting() {
-  let projectPackageJson = require(this.destinationPath('package.json'));
+    // read project name from app package.json
+    let projectPackageJson = require(this.destinationPath('package.json'));
     let prompts = [{
       type: 'list',
       name: 'moduleName',
@@ -87,4 +88,4 @@ let ServiceGenerator = class extends Generator {
   }
 };
 
-module.exports = ServiceGenerator;
+module.exports = AngularServiceGenerator;

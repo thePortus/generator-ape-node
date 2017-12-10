@@ -6,22 +6,23 @@ const util = require('../../util'),
     chalk = require('chalk'),
     _ = require('lodash');
 
-let AngularDirectiveGenerator = class extends Generator {
+let ApiRouteGenerator = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
   }
   initializing() {
-    this.log(chalk.white('APE-Stack Angular Directive'));
+    this.log(chalk.white('APE-Stack Angular Controller'));
   }
   prompting() {
     // read project name from app package.json
     let projectPackageJson = require(this.destinationPath('package.json'));
+    let projectConfigJson = require(this.destinationPath('config.json'));
     let prompts = [{
       type: 'list',
-      name: 'moduleName',
-      message: 'Which module does this directive belongs to?',
-      choices: util.listAngularModules(),
-      default: 'app'
+      name: 'apiVersion',
+      message: 'Which version of the api does this route belong to?',
+      choices: projectConfigJson.api.versions,
+      default: projectConfigJson.api.default
     }, {
       type: 'string',
       name: 'documentAuthor',
@@ -30,7 +31,7 @@ let AngularDirectiveGenerator = class extends Generator {
     }, {
       type: 'string',
       name: 'documentDescription',
-      message: 'Enter a short description of this directive (optional)',
+      message: 'Enter a short description of this route (optional)',
       default: '[Description]'
     }];
     return this.prompt(prompts).then((answers) => {
@@ -39,7 +40,7 @@ let AngularDirectiveGenerator = class extends Generator {
         // read project name from app package.json
         projectName: projectPackageJson.name,
         sluggifiedProjectName: _.kebabCase(projectPackageJson.name),
-        moduleName: answers.moduleName,
+        apiVersion: answers.apiVersion,
         componentName: this.name,
         documentAuthor: answers.documentAuthor,
         documentDescription: answers.documentDescription
@@ -52,26 +53,14 @@ let AngularDirectiveGenerator = class extends Generator {
       this.yoInfo.classifiedComponentName = _.capitalize(this.yoInfo.camelizedComponentName);
       // build component filepath
       this.yoInfo.componentPath = format(
-        'client/js/{0}/{1}.directive.js',
-        this.yoInfo.slugifiedModuleName,
+        'server/routes/api/{0}/{1}.route.js',
+        this.yoInfo.apiVersion,
         this.yoInfo.slugifiedComponentName
       );
-      // building template file path
-      this.yoInfo.templatePath = format(
-        'client/js/{0}/{1}.directive.template.html',
-        this.yoInfo.slugifiedModuleName,
-        this.yoInfo.slugifiedComponentName
-      );
-      // building less file path
-      this.yoInfo.lessPath = format(
-        'client/less/{0}/{1}.less',
-        this.yoInfo.slugifiedModuleName,
-        this.yoInfo.slugifiedComponentName
-      );
-      // building test file path
+      // build test filepath
       this.yoInfo.testPath = format(
-        'client/js/{0}/tests/{1}.directive.spec.js',
-        this.yoInfo.slugifiedModuleName,
+        'server/routes/api/{0}/tests/{1}.route.spec.js',
+        this.yoInfo.apiVersion,
         this.yoInfo.slugifiedComponentName
       );
     });
@@ -80,39 +69,20 @@ let AngularDirectiveGenerator = class extends Generator {
     this.log(chalk.magenta('Rendering component template files...'));
     // copy component file
     this.fs.copyTpl(
-      this.templatePath('_.directive.js'),
+      this.templatePath('_.route.js'),
       this.destinationPath(this.yoInfo.componentPath),
-      this.yoInfo
-    );
-    // copy template file
-    this.fs.copyTpl(
-      this.templatePath('_.directive.template.html'),
-      this.destinationPath(this.yoInfo.templatePath),
-      this.yoInfo
-    );
-    // copy less file
-    this.fs.copyTpl(
-      this.templatePath('_.less'),
-      this.destinationPath(this.yoInfo.lessPath),
       this.yoInfo
     );
     // copy test file
     this.fs.copyTpl(
-      this.templatePath('_.directive.spec.js'),
+      this.templatePath('_.route.spec.js'),
       this.destinationPath(this.yoInfo.testPath),
       this.yoInfo
     );
-    // load project's assets.json
-    let projectAssetsJson = require(this.destinationPath('assets.json'));
-    // add relative paths of new component files, excluding the static directory prefixes
-    projectAssetsJson.source.js.push(this.yoInfo.componentPath.replace('client/js/', ''));
-    projectAssetsJson.source.less.push(this.yoInfo.lessPath.replace('client/less/', ''));
-    // save over the previous version
-    util.writeJson(this.destinationPath('assets.json'), projectAssetsJson);
   }
   end() {
-    this.log(chalk.magenta('Finished creating directive'));
+    this.log(chalk.magenta('Finished creating controller'));
   }
 };
 
-module.exports = AngularControllerGenerator;
+module.exports = ApiRouteGenerator;

@@ -7,7 +7,7 @@ const util = require('../../util'),
     _ = require('lodash');
 
 
-let ModalGenerator = class extends Generator {
+let AngularModalGenerator = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
   }
@@ -16,7 +16,7 @@ let ModalGenerator = class extends Generator {
   }
   prompting() {
     // read project name from app package.json
-  let projectPackageJson = require(this.destinationPath('package.json'));
+    let projectPackageJson = require(this.destinationPath('package.json'));
     let prompts = [{
       type: 'list',
       name: 'moduleName',
@@ -122,4 +122,4 @@ let ModalGenerator = class extends Generator {
   }
 };
 
-module.exports = ModalGenerator;
+module.exports = AngularModalGenerator;

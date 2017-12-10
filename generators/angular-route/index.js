@@ -8,7 +8,7 @@ const fs = require('fs'),
   _ = require('lodash'),
   render = require('ejs').render;
 
-let DirectiveGenerator = class extends Generator {
+let AngularRouteGenerator = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
   }
@@ -17,7 +17,7 @@ let DirectiveGenerator = class extends Generator {
   }
   prompting() {
     // read project name from app package.json
-  let projectPackageJson = require(this.destinationPath('package.json'));
+    let projectPackageJson = require(this.destinationPath('package.json'));
     let prompts = [{
         type: 'list',
         name: 'moduleName',
@@ -134,4 +134,4 @@ let DirectiveGenerator = class extends Generator {
   }
 };
 
-module.exports = DirectiveGenerator;
+module.exports = AngularRouteGenerator;
